@@ -1,0 +1,338 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>
+:root { --bg:#080d18; --surface:#101a2b; --fg:#f4f7ff; --muted:#9ba8bf; --line:#26354d; --accent:#b8f36b; --accent-soft:#1c3029; --font-display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif; --font-body:"Public Sans",system-ui,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace; color-scheme:dark; }
+:root[data-theme="light"] { --bg:#f2f5fa; --surface:#fff; --fg:#121d32; --muted:#596780; --line:#dbe2ee; --accent:#3159e8; --accent-soft:#e6ecff; color-scheme:light; }
+* {box-sizing:border-box}
+html {scroll-behavior:smooth;scroll-padding-top:1.5rem}
+body {
+ margin:0;color:var(--fg);font-family:var(--font-body);font-size:1rem;line-height:1.65;
+ padding:clamp(1rem,3vw,2.5rem) max(18px,env(safe-area-inset-right,0px)) 4rem max(18px,env(safe-area-inset-left,0px));
+ background:
+  radial-gradient(ellipse at 78% 9%,rgba(73,106,189,.18),transparent 33rem),
+  radial-gradient(ellipse at 8% 44%,rgba(184,243,107,.055),transparent 27rem),
+  linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px),var(--bg);
+ background-size:auto,auto,48px 48px,48px 48px,auto;
+}
+.skip-link {position:absolute;left:1rem;top:-5rem;z-index:20;padding:.7rem 1rem;background:var(--accent);color:#0a1220}
+.skip-link:focus {top:1rem}
+.page {max-width:72rem;margin:0 auto;display:grid;gap:clamp(4rem,9vw,7.5rem)}
+h1,h2,h3 {font-family:var(--font-display);font-weight:600;line-height:1.06;margin:0;text-wrap:balance;letter-spacing:-.04em}
+p {margin:0}
+a {color:inherit}
+a:focus-visible {outline:2px solid var(--accent);outline-offset:4px}
+section[id] {scroll-margin-top:1.5rem}
+.eyebrow {font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.top {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 2rem;padding-bottom:1.1rem;border-bottom:1px solid var(--line)}
+.mark {font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;display:inline-flex;align-items:center;gap:.65rem}
+.mark::before {content:"";width:.58rem;height:.58rem;background:var(--accent);display:inline-block;box-shadow:0 0 16px rgba(184,243,107,.6);transform:rotate(45deg)}
+.top nav {display:flex;flex-wrap:wrap;gap:.35rem .55rem;font-size:.9rem}
+.top nav a {text-decoration:none;color:var(--muted);padding:.48rem .75rem;border:1px solid transparent;border-radius:999px;transition:color .2s,border-color .2s,background .2s}
+.top nav a:hover {color:var(--fg);border-color:var(--line);background:rgba(255,255,255,.035)}
+.hero {display:grid;gap:1.4rem;padding-top:clamp(3.5rem,8vw,7rem);position:relative}
+.hero::before {content:"";position:absolute;right:2%;top:14%;width:clamp(120px,23vw,300px);aspect-ratio:1;border:1px solid rgba(184,243,107,.18);border-radius:50%;box-shadow:0 0 0 28px rgba(184,243,107,.025),0 0 0 58px rgba(184,243,107,.018);pointer-events:none;mask-image:linear-gradient(135deg,#000,transparent 70%)}
+.hero .eyebrow {display:flex;align-items:center;gap:.7rem}
+.hero .eyebrow::before {content:"";width:1.8rem;height:1px;background:var(--accent)}
+.hero h1 {font-size:clamp(3.5rem,9.5vw,7.6rem);font-weight:700;max-width:10ch;line-height:.91;letter-spacing:-.075em;position:relative}
+.hero h1::first-line {color:var(--fg)}
+.hero .lede {font-size:clamp(1rem,1.6vw,1.2rem);max-width:39rem;color:var(--muted);line-height:1.85}
+.hero-actions {display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.3rem}
+.hero-actions a {display:inline-flex;align-items:center;gap:.7rem;padding:.85rem 1.15rem;border:1px solid var(--line);border-radius:.55rem;text-decoration:none;font-size:.9rem;font-weight:600;transition:transform .22s,border-color .22s,background .22s,box-shadow .22s}
+.hero-actions a:hover {transform:translateY(-3px);border-color:var(--accent);box-shadow:0 8px 30px rgba(0,0,0,.22)}
+.hero-actions .primary {background:var(--accent);color:#0b1220;border-color:var(--accent)}
+.hero-actions .primary:hover {background:#c8ff84;box-shadow:0 8px 28px rgba(184,243,107,.17)}
+.trio {display:grid;grid-template-columns:1fr;border-top:1px solid var(--line);margin-top:2rem;background:rgba(16,26,43,.5)}
+.trio div {padding:1.35rem 1.5rem 1.25rem 0;min-width:0;display:grid;gap:.55rem;align-content:start}
+.trio h2 {font-size:1.55rem;letter-spacing:-.04em}
+.trio p {color:var(--muted);font-size:.92rem;max-width:23rem;line-height:1.75}
+.head {display:grid;gap:.75rem;margin-bottom:1.75rem;max-width:43rem}
+.head h2 {font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.055em}
+.head p {color:var(--muted)}
+.work {display:grid;grid-template-columns:1fr;gap:1rem;background:transparent;border:0}
+.card {position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(20,32,52,.96),rgba(12,19,32,.96));border:1px solid var(--line);border-radius:1rem;padding:clamp(1.35rem,3vw,2rem);display:grid;gap:1rem;align-content:start;min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
+.card::after {content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .25s}
+.card:hover {transform:translateY(-5px);border-color:rgba(184,243,107,.55);box-shadow:0 18px 45px rgba(0,0,0,.2)}
+.card:hover::after {transform:scaleY(1)}
+.card .idx {font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;color:var(--accent)}
+.card h3 {font-size:clamp(1.25rem,2.2vw,1.55rem);letter-spacing:-.035em}
+.card p {color:var(--muted);font-size:.94rem;line-height:1.8}
+.tags {display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}
+.tags li {font-family:var(--font-mono);font-size:.7rem;padding:.25rem .55rem;border:1px solid var(--line);border-radius:.35rem;color:var(--muted)}
+.tags li.on {background:var(--accent-soft);border-color:rgba(184,243,107,.18);color:var(--accent)}
+.services {display:grid;grid-template-columns:1fr;border-top:1px solid var(--line)}
+.service {position:relative;padding:1.55rem 1.25rem 1.55rem 0;border-bottom:1px solid var(--line);display:grid;gap:.6rem;min-width:0;transition:padding-left .2s}
+.service::before {content:"↗";position:absolute;right:.25rem;top:1.5rem;color:var(--accent);opacity:.6;transition:transform .2s,opacity .2s}
+.service:hover {padding-left:.65rem}
+.service:hover::before {transform:translate(2px,-2px);opacity:1}
+.service h3 {font-size:1.25rem;letter-spacing:-.025em}
+.service p {color:var(--muted);font-size:.94rem;line-height:1.8;max-width:32rem}
+.about {display:grid;grid-template-columns:1fr;gap:2.5rem}
+.about .copy {display:grid;gap:1rem;align-content:start}
+.about .copy p {color:var(--muted);max-width:34rem;line-height:1.85}
+.about .copy p:first-of-type {color:var(--fg);font-size:1.1rem}
+.skills {display:grid;gap:1.5rem;align-content:start;padding:clamp(1.3rem,3vw,2rem);border:1px solid var(--line);border-radius:1rem;background:linear-gradient(145deg,rgba(17,27,45,.98),rgba(12,18,30,.98));box-shadow:0 18px 50px rgba(0,0,0,.12)}
+.skills h3 {font-family:var(--font-mono);font-size:.73rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+.skills .tags li {font-family:var(--font-body);font-size:.86rem;color:var(--fg);padding:.28rem .65rem}
+.closing {position:relative;border:1px solid var(--line);border-radius:1.1rem;padding:clamp(1.5rem,5vw,3.5rem);display:grid;gap:.9rem;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,rgba(184,243,107,.10),transparent 55%),linear-gradient(135deg,rgba(17,27,45,.98),rgba(12,18,30,.98))}
+.closing::after {content:"↗";position:absolute;right:clamp(1rem,4vw,3rem);top:1rem;font:700 clamp(4rem,11vw,8rem)/1 var(--font-display);color:rgba(184,243,107,.13);pointer-events:none;transition:transform .3s}
+.closing:hover::after {transform:translate(5px,-5px)}
+.closing h2 {font-size:clamp(2.1rem,5vw,3.8rem);max-width:17ch;letter-spacing:-.06em}
+.closing p {color:var(--muted);max-width:36rem;line-height:1.8}
+.contact-link {display:inline-flex;width:fit-content;margin-top:.45rem;padding:.85rem 1.1rem;border-radius:.55rem;background:var(--accent);color:#0b1220;text-decoration:none;font-weight:700;transition:transform .2s,box-shadow .2s}
+.contact-link:hover {transform:translateY(-2px);box-shadow:0 8px 25px rgba(184,243,107,.16)}
+footer {font-family:var(--font-mono);font-size:.72rem;color:var(--muted);letter-spacing:.05em;border-top:1px solid var(--line);padding-top:1rem}
+@media (min-width:46rem) {
+ .trio {grid-template-columns:repeat(3,minmax(0,1fr))}
+ .work {grid-template-columns:repeat(2,minmax(0,1fr))}
+ .services {grid-template-columns:repeat(2,minmax(0,1fr));column-gap:3rem}
+}
+@media (min-width:52rem) {.about {grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:4rem}}
+@media (max-width:45.99rem) {
+ .top {align-items:flex-start}
+ .top nav {width:100%;gap:.2rem}
+ .top nav a {padding:.45rem .65rem}
+ .hero::before {right:0;top:7%;opacity:.55}
+ .hero h1 {max-width:9ch}
+ .trio div {padding:1.1rem 0;border-bottom:1px solid var(--line)}
+ .trio div:last-child {border-bottom:0}
+ .closing::after {font-size:4rem;opacity:.7}
+}
+@media (prefers-reduced-motion:reduce) {html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+</style></head><body>
+<title>Affiliate Developer Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Web development, technical SEO and affiliate growth — from clean code to measurable organic revenue.">
+<meta name="theme-color" content="#0b1020">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working developer's portfolio. Nav row, short hero split into Build / Rank / Earn, work cards, services, skills, closing line. */
+:root {
+  --bg: #F4F6F8;
+  --surface: #FFFFFF;
+  --fg: #0E1A2B;
+  --muted: #55627A;
+  --line: #D3DAE4;
+  --accent: #2742E6;
+  --accent-soft: #E3E8FD;
+  --font-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1018;
+    --surface: #121926;
+    --fg: #E7ECF4;
+    --muted: #9AA7BC;
+    --line: #263145;
+    --accent: #8EA2FF;
+    --accent-soft: #1A2347;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1018;
+  --surface: #121926;
+  --fg: #E7ECF4;
+  --muted: #9AA7BC;
+  --line: #263145;
+  --accent: #8EA2FF;
+  --accent-soft: #1A2347;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-block: 1.5rem 4rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 68rem; margin: 0 auto; display: grid; gap: 5rem; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+section[id] { scroll-margin-top: 1.5rem; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+/* Top row */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.mark { font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 0.6rem; }
+.mark::before { content: ""; width: 0.6rem; height: 0.6rem; background: var(--accent); display: inline-block; }
+.top nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; font-size: 0.9375rem; }
+.top nav a { text-decoration: none; color: var(--muted); padding: 0.2rem 0; border-bottom: 1px solid transparent; }
+.top nav a:hover { color: var(--fg); border-bottom-color: var(--accent); }
+
+/* Hero */
+.hero { display: grid; gap: 1.5rem; padding-top: 1rem; }
+.hero h1 { font-size: clamp(2.4rem, 7vw, 4.6rem); font-weight: 700; max-width: 14ch; }
+.hero .lede { font-size: 1.125rem; max-width: 38rem; color: var(--muted); }
+.trio { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); margin-top: 1rem; }
+@media (min-width: 46rem) { .trio { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.trio div { padding: 1.25rem 1.5rem 0.25rem 0; min-width: 0; display: grid; gap: 0.35rem; align-content: start; }
+@media (max-width: 45.99rem) { .trio div { padding: 1rem 0; border-bottom: 1px solid var(--line); } .trio div:last-child { border-bottom: 0; } }
+.trio h2 { font-size: 1.5rem; }
+.trio p { color: var(--muted); font-size: 0.9375rem; max-width: 22rem; }
+
+/* Section heads */
+.head { display: grid; gap: 0.6rem; margin-bottom: 1.75rem; max-width: 42rem; }
+.head h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); }
+.head p { color: var(--muted); }
+
+/* Work */
+.work { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (min-width: 46rem) { .work { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card { background: var(--surface); padding: 1.5rem; display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+.card .idx { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.card h3 { font-size: 1.35rem; }
+.card p { color: var(--muted); font-size: 0.9375rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.tags li { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.1rem 0.5rem; border: 1px solid var(--line); border-radius: 2px; color: var(--muted); }
+.tags li.on { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+
+/* Services */
+.services { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+@media (min-width: 46rem) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; } }
+.service { padding: 1.5rem 0; border-bottom: 1px solid var(--line); display: grid; gap: 0.4rem; min-width: 0; }
+.service h3 { font-size: 1.2rem; }
+.service p { color: var(--muted); font-size: 0.9375rem; max-width: 32rem; }
+
+/* About + skills */
+.about { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+@media (min-width: 52rem) { .about { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 4rem; } }
+.about .copy { display: grid; gap: 1rem; align-content: start; }
+.about .copy p { color: var(--muted); max-width: 34rem; }
+.about .copy p:first-of-type { color: var(--fg); font-size: 1.125rem; }
+.skills { display: grid; gap: 1.5rem; align-content: start; }
+.skills h3 { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.skills .tags li { font-family: var(--font-body); font-size: 0.875rem; color: var(--fg); padding: 0.2rem 0.65rem; }
+
+/* Closing */
+.closing { border-top: 1px solid var(--line); padding-top: 2rem; display: grid; gap: 0.6rem; }
+.closing h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); max-width: 22ch; }
+.closing p { color: var(--muted); max-width: 34rem; }
+footer { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
+
+@media (max-width: 30rem) {
+  .page { gap: 3.5rem; }
+  .card { padding: 1.25rem; }
+}
+</style>
+
+<div class="page">
+  <header>
+    <div class="top">
+      <span class="mark">DEV / SEO / AFFILIATE</span>
+      <nav aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <p class="eyebrow">8 years &middot; Web developer</p>
+      <h1>I build websites that rank and earn.</h1>
+      <p class="lede">Developer specialising in search-driven sites and affiliate partnerships. Eight years of taking sites from the first line of code to steady organic revenue, across a range of niches.</p>
+      <div class="hero-actions"><a class="primary" href="#contact">Let’s work together <span aria-hidden="true">↗</span></a><a class="secondary" href="#work">Explore selected work <span aria-hidden="true">↓</span></a></div>
+      <div class="trio">
+        <div><h2>Build</h2><p>Fast, clean, maintainable sites with structure designed for search from day one.</p></div>
+        <div><h2>Rank</h2><p>Technical and on-page SEO that earns visibility and holds up through algorithm updates.</p></div>
+        <div><h2>Earn</h2><p>Affiliate integrations, tracking and reporting that show exactly what each page produces.</p></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+  <section id="work" aria-labelledby="work-h">
+    <div class="head">
+      <p class="eyebrow">Selected work</p>
+      <h2 id="work-h">Projects across development, SEO and affiliate.</h2>
+    </div>
+    <div class="work">
+      <article class="card">
+        <span class="idx">01</span>
+        <h3>Review and comparison sites</h3>
+        <p>Content sites built from scratch around reusable templates for reviews, comparison tables and buying guides, with structured data and consistent internal linking.</p>
+        <ul class="tags"><li class="on">Development</li><li>Templates</li><li>Schema</li></ul>
+      </article>
+      <article class="card">
+        <span class="idx">02</span>
+        <h3>Technical SEO overhauls</h3>
+        <p>Crawl and index audits, site architecture rework, redirects, canonicals and Core Web Vitals fixes on established sites that had stopped growing.</p>
+        <ul class="tags"><li class="on">SEO</li><li>Site audits</li><li>Performance</li></ul>
+      </article>
+      <article class="card">
+        <span class="idx">03</span>
+        <h3>Affiliate link and tracking systems</h3>
+        <p>Link management, click tracking and reporting setups that connect traffic sources and pages to affiliate network conversions.</p>
+        <ul class="tags"><li class="on">Affiliate</li><li>Tracking</li><li>Reporting</li></ul>
+      </article>
+      <article class="card">
+        <span class="idx">04</span>
+        <h3>Content publishing workflows</h3>
+        <p>Editorial pipelines and tooling that let teams publish consistent, well-structured pages at pace without breaking templates or SEO basics.</p>
+        <ul class="tags"><li class="on">Development</li><li>Automation</li><li>SEO</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="services-h">
+    <div class="head">
+      <p class="eyebrow">Services</p>
+      <h2 id="services-h">What I can take on.</h2>
+    </div>
+    <div class="services">
+      <article class="service"><h3>Website development</h3><p>Custom builds and rebuilds for content, review and comparison sites, with clean markup and fast load times.</p></article>
+      <article class="service"><h3>Technical and on-page SEO</h3><p>Audits, fixes and ongoing optimisation of site structure, metadata, internal linking and page performance.</p></article>
+      <article class="service"><h3>Affiliate site monetisation</h3><p>Program integration, link management and page layouts that turn traffic into commission.</p></article>
+      <article class="service"><h3>Analytics and reporting</h3><p>Conversion tracking and clear reports on which pages, sources and partners perform.</p></article>
+    </div>
+  </section>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="about">
+      <div class="copy">
+        <p class="eyebrow">About</p>
+        <h2 id="about-h" style="font-size: clamp(1.6rem, 3.6vw, 2.3rem);">A developer who runs sites like businesses.</h2>
+        <p>I have spent eight years working at the point where web development, search and affiliate marketing meet. That covers the code, the page structure, the partner integrations and the reporting behind them.</p>
+        <p>I work across different niches and aim for sites that are fast, honest about what they recommend, and built to last.</p>
+      </div>
+      <div class="skills">
+        <div>
+          <h3>Development</h3>
+          <ul class="tags"><li>Front-end development</li><li>Back-end and CMS</li><li>Templating systems</li><li>Site speed</li><li>Automation</li></ul>
+        </div>
+        <div>
+          <h3>SEO</h3>
+          <ul class="tags"><li>Technical audits</li><li>Site architecture</li><li>Structured data</li><li>Content strategy</li><li>Core Web Vitals</li></ul>
+        </div>
+        <div>
+          <h3>Affiliate</h3>
+          <ul class="tags"><li>Affiliate networks</li><li>Program integration</li><li>Link management</li><li>Conversion tracking</li><li>Compliance and disclosure</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="closing" aria-labelledby="contact-h">
+    <p class="eyebrow">Contact</p>
+    <h2 id="contact-h">Have a site to build or grow?</h2>
+    <p>Available for freelance and consulting projects in website development, SEO and affiliate marketing. Contact details are shared on request.</p>
+    <a class="contact-link" href="#contact">Contact details on request <span aria-hidden="true">↗</span></a>
+  </section>
+  </main>
+
+  <footer>Dev / SEO / Affiliate <span aria-hidden="true"> · </span> Built for speed, search and growth</footer>
+</div>
+
+</body></html>
